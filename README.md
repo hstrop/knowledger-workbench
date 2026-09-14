@@ -13,6 +13,7 @@ KnowLedger 是一个面向学习、演示和面试作品集的知识库 RAG 工�
 - CLI：入库、查询、列文档、查看 Chunk、删除和重建。
 - FastAPI：健康检查、文本/文件上传、文档列表、Chunk 观测、查询、删除和重建。
 - 离线回答器输出证据摘要；显式切换到 `online` 且提供 DashScope Key 后才会尝试 Qwen。
+- 内置无需 Node 构建的 Web 工作台：导入文档、快速添加文本、知识库问答、来源追踪和文档概览均可在浏览器完成。
 
 ## 架构
 
@@ -60,6 +61,14 @@ python -m uvicorn knowledger.api:app --host 127.0.0.1 --port 8010
 
 服务只绑定 loopback，适合本机演示。启动后访问 `http://127.0.0.1:8010/docs` 查看 OpenAPI 页面。
 
+浏览器工作台：
+
+```text
+http://127.0.0.1:8010/
+```
+
+首次打开页面可点击“载入演示手册”，随后直接提问。页面会展示预检索命中的文件、章节、`chunk_id` 和融合分；所有离线回答都会注明证据边界。
+
 ## CLI 示例
 
 ```powershell
@@ -89,6 +98,9 @@ PowerShell 中如果需要真正的换行，可使用 ``"# 标题`n正文"``；�
 | `DELETE` | `/v1/documents/{document_id}` | 删除文档及其内存索引 |
 | `POST` | `/v1/index/rebuild` | 按当前切分配置重建内存索引 |
 | `POST` | `/v1/query` | 预检索并生成带来源回答 |
+| `GET` | `/` | 本地 Web 知识库工作台 |
+| `GET` | `/meta` | 返回工作台能力和运行模式 |
+| `POST` | `/v1/demo/seed` | 载入可立即提问的演示手册（幂等） |
 
 文本入库和查询示例：
 

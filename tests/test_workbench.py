@@ -112,6 +112,8 @@ def test_workbench_snapshot_idempotency_and_query(tmp_path: Path) -> None:
 def test_http_api_ingest_query_and_missing_document(tmp_path: Path) -> None:
     app = create_app(make_settings(tmp_path))
     with TestClient(app) as client:
+        assert client.get("/").status_code == 200
+        assert client.get("/meta").json()["name"] == "KnowLedger"
         health = client.get("/health")
         assert health.status_code == 200
         assert health.json()["mode"] == "offline"

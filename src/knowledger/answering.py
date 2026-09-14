@@ -27,14 +27,14 @@ def build_evidence_context(evidence: Iterable[Evidence]) -> str:
 
 def offline_answer(query: str, evidence: tuple[Evidence, ...]) -> str:
     if not evidence:
-        return "未在当前知识库召回足够相关内容。请尝试补充关键词，或先上传相关文档。"
-    lines = [f"离线证据摘要（问题：{query}）："]
+        return "我暂时没有在当前知识库找到足够依据。请换一种关键词，或先上传相关文档。"
+    lines = [f"根据知识库证据，关于“{query}”可以这样看："]
     for item in evidence[:3]:
         text = " ".join(item.chunk.text.split())
         if len(text) > 220:
             text = text[:220].rstrip() + "…"
         lines.append(f"- [{item.chunk.chunk_id}] {text}")
-    lines.append("以上内容来自检索到的文档片段；请结合来源字段核查原文。")
+    lines.append("以上结论来自预检索证据；可根据下方 chunk_id、章节和页码核查原文。")
     return "\n".join(lines)
 
 
