@@ -15,6 +15,8 @@ KnowLedger 是一个面向学习、演示和面试作品集的知识库 RAG 工�
 - 离线回答器输出证据摘要；显式切换到 `online` 且提供 DashScope Key 后才会尝试 Qwen。
 - 内置无需 Node 构建的 Web 工作台：导入文档、快速添加文本、知识库问答、来源追踪和文档概览均可在浏览器完成。
 
+前端资源位于 `src/knowledger/static/`，`run_demo.ps1` 会在本地 8000 端口启动完整页面和 API。
+
 ## 架构
 
 ```mermaid
