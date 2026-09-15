@@ -1,5 +1,7 @@
 # KnowLedger 企业知识库检索工作台
 
+[![CI](https://github.com/hstrop/knowledger-workbench/actions/workflows/ci.yml/badge.svg)](https://github.com/hstrop/knowledger-workbench/actions/workflows/ci.yml)
+
 KnowLedger 是一个面向学习、演示和面试作品集的知识库 RAG 工作台。它把“文档解析 → 结构化切分 → 混合检索 → 带来源回答”串成一条可以在本地复现的链路，并同时提供 CLI 和 FastAPI 入口。
 
 项目默认运行在**无密钥、无外网、无 Milvus 服务**的离线模式。离线检索使用进程间稳定的哈希向量、轻量 BM25 和 RRF（Reciprocal Rank Fusion）融合排序，因此克隆仓库后即可运行；代码中另外保留了 OCR HTTP、Qwen 和 Milvus 的可选适配器边界，README 会明确区分“已实现”和“待接入”。
