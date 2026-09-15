@@ -4,6 +4,14 @@ KnowLedger 是一个面向学习、演示和面试作品集的知识库 RAG 工�
 
 项目默认运行在**无密钥、无外网、无 Milvus 服务**的离线模式。离线检索使用进程间稳定的哈希向量、轻量 BM25 和 RRF（Reciprocal Rank Fusion）融合排序，因此克隆仓库后即可运行；代码中另外保留了 OCR HTTP、Qwen 和 Milvus 的可选适配器边界，README 会明确区分“已实现”和“待接入”。
 
+## Global AI/LLM Internship Portfolio
+
+KnowLedger is the retrieval-quality project in my portfolio. It makes hybrid search observable by returning vector score, BM25 score, RRF score, document metadata, and chunk-level evidence instead of hiding retrieval behind a black box.
+
+**Engineering signals:** Python · FastAPI · BM25 · vector similarity · Reciprocal Rank Fusion · evidence-aware answers · local persistence · browser workbench.
+
+**Verified locally:** 7 automated tests pass, covering ingestion, hybrid retrieval, persistence, API behavior, delete/clear operations, and source metadata. The default experience is offline and deterministic.
+
 ## 功能范围
 
 - 原生解析 UTF-8 的 Markdown、纯文本和 DOCX；PDF 通过可选的 `pypdf` 解析。

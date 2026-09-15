@@ -27,6 +27,10 @@ class TextIngestRequest(BaseModel):
     text: str = Field(min_length=1, max_length=20 * 1024 * 1024)
 
 
+class ClearIndexRequest(BaseModel):
+    confirm: bool = Field(default=False, description="必须显式确认才会清空工作区")
+
+
 DEMO_TEXT = """# 企业协作手册
 
 ## 研发流程
@@ -182,6 +186,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         current = workbench(request)
         current.rebuild()
         return {"status": "rebuilt", "chunks": current.retriever.size}
+
+    @app.post("/v1/index/clear")
+    async def clear_index(payload: ClearIndexRequest, request: Request) -> dict[str, Any]:
+        if not payload.confirm:
+            raise HTTPException(status_code=400, detail="请传入 confirm=true 才能清空工作区")
+        current = workbench(request)
+        removed = current.clear()
+        return {"status": "cleared", "documents_removed": removed, "chunks": 0}
 
     @app.post("/v1/query")
     async def query(payload: QueryRequest, request: Request) -> dict[str, Any]:

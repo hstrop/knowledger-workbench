@@ -149,6 +149,13 @@ def test_http_api_ingest_query_and_missing_document(tmp_path: Path) -> None:
         assert upload.status_code == 200
         assert upload.json()["document"]["filename"] == "uploaded.md"
 
+        rejected_clear = client.post("/v1/index/clear", json={"confirm": False})
+        assert rejected_clear.status_code == 400
+        cleared = client.post("/v1/index/clear", json={"confirm": True})
+        assert cleared.status_code == 200
+        assert cleared.json()["status"] == "cleared"
+        assert client.get("/v1/documents").json()["documents"] == []
+
 
 def test_settings_reject_invalid_overlap() -> None:
     with pytest.raises(ConfigurationError):

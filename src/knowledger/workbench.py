@@ -134,6 +134,14 @@ class KnowledgeWorkbench:
         self.retriever.remove_document(document_id)
         self._save_state()
 
+    def clear(self) -> int:
+        """清空当前工作区并持久化空索引，返回被删除的文档数。"""
+        removed = len(self.documents)
+        self.documents.clear()
+        self.retriever = HybridRetriever()
+        self._save_state()
+        return removed
+
     def rebuild(self) -> None:
         self.retriever = HybridRetriever()
         for document in self.documents.values():
@@ -153,4 +161,3 @@ class KnowledgeWorkbench:
 
     def ask_sync(self, query: str, *, top_k: int | None = None) -> QueryResponse:
         return asyncio.run(self.ask(query, top_k=top_k))
-
