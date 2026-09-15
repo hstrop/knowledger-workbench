@@ -218,6 +218,15 @@ examples/          # 可直接导入的示例文档
 tests/             # 离线单元和 API 测试
 ```
 
+## Container deployment
+
+```powershell
+docker build -t knowledger-workbench .
+docker run --rm -p 8000:8000 -v knowledger-data:/app/data knowledger-workbench
+```
+
+The image starts the offline FastAPI workbench with a persistent `/app/data` volume and no API key.
+
 ## License
 
 MIT，见 [LICENSE](LICENSE)。
